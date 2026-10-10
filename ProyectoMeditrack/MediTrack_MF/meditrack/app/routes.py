@@ -78,9 +78,7 @@ def detallesMeds(medicamento_id):
         dias=DIAS_POR_VENCER,
     )
 
-# ERROR 9 (corregido): estas rutas renderizaban errores/404.html y
-# errores/500.html, pero esos archivos no existían, así que un error real se
-# convertía en OTRO error (TemplateNotFound). Ya están creados en templates/.
+
 @main.app_errorhandler(404)
 def not_found(error):
     return render_template("errores/404.html"), 404
