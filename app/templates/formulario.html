@@ -1,0 +1,53 @@
+{#
+    Formulario compartido para crear y editar medicamentos (variable "titulo").
+
+    ERROR 21 (corregido): cada campo repetía ~15 líneas casi idénticas (etiqueta,
+    input, bucle de errores) y los errores se mostraban con .text-danger suelto
+    en vez de la validación visual de Bootstrap. Ahora se usa la macro "campo"
+    de macros.html. También: el botón Cancelar llevaba al panel; ahora vuelve
+    a la lista de medicamentos, que es de donde normalmente se llega.
+-#}
+{% extends "base.html" %}
+{% from "macros.html" import campo, campo_check %}
+
+{% block title %}{{ titulo }} | Meditrack{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h1 class="h4 mb-0">{{ titulo }}</h1>
+                </div>
+
+                <div class="card-body">
+                    {# novalidate: la validación la hace el servidor (WTForms) y se muestra con mensajes en español #}
+                    <form method="POST" novalidate>
+                        {{ form.hidden_tag() }}
+
+                        {{ campo(form.nombre, placeholder="Ej. Paracetamol") }}
+                        {{ campo(form.descripcion, rows="4", placeholder="Descripción del medicamento") }}
+                        {{ campo(form.laboratorio, placeholder="Ej. MK") }}
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ campo(form.precio, type="number", step="0.01", min="0", placeholder="125.50") }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ campo(form.stock, type="number", min="0", placeholder="80") }}
+                            </div>
+                        </div>
+
+                        {{ campo(form.fecha_vencimiento, type="date") }}
+                        {{ campo_check(form.requiere_receta) }}
+
+                        <div class="d-flex gap-2">
+                            {{ form.submit(class="btn btn-primary") }}
+                            <a class="btn btn-outline-secondary" href="{{ url_for('main.listarMeds') }}">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

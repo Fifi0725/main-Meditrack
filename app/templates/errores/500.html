@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Error del servidor | Meditrack{% endblock %}
+
+{% block content %}
+    <div class="text-center py-5">
+        <p class="display-1 fw-bold text-body-secondary mb-0">500</p>
+        <h1 class="h3 mb-3">Algo salió mal</h1>
+        <p class="text-body-secondary">Ocurrió un error inesperado. Intenta de nuevo en unos momentos.</p>
+        <a class="btn btn-primary" href="{{ url_for('main.dashboard') }}">Volver al inicio</a>
+    </div>
+{% endblock %}

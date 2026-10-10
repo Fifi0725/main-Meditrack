@@ -1,0 +1,67 @@
+{#
+    Detalle de un medicamento.
+
+    ERROR 20 (corregido): el botón "Eliminar" borraba el registro al instante,
+    sin pedir confirmación. Se agregó un confirm() antes de enviar el formulario.
+    Además, los botones ahora tienen un orden claro (volver / editar / eliminar).
+-#}
+{% extends "base.html" %}
+{% from "macros.html" import badge_stock, badge_vencimiento %}
+
+{% block title %}{{ medicamento.nombre }} | Meditrack{% endblock %}
+
+{% block content %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('main.listarMeds') }}">Medicamentos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ medicamento.nombre }}</li>
+        </ol>
+    </nav>
+
+    <div class="card">
+        <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <span class="fs-5">{{ medicamento.nombre }}</span>
+            {% if medicamento.requiere_receta %}
+                <span class="badge text-bg-dark">Requiere receta</span>
+            {% else %}
+                <span class="badge text-bg-secondary">Venta libre</span>
+            {% endif %}
+        </div>
+
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-3">Descripción</dt>
+                <dd class="col-sm-9">{{ medicamento.descripcion }}</dd>
+
+                <dt class="col-sm-3">Laboratorio</dt>
+                <dd class="col-sm-9">{{ medicamento.laboratorio }}</dd>
+
+                <dt class="col-sm-3">Precio</dt>
+                <dd class="col-sm-9">${{ "%.2f"|format(medicamento.precio) }}</dd>
+
+                <dt class="col-sm-3">Stock</dt>
+                <dd class="col-sm-9">{{ badge_stock(medicamento.stock, stock_bajo) }}</dd>
+
+                <dt class="col-sm-3">Fecha de vencimiento</dt>
+                <dd class="col-sm-9">
+                    {{ medicamento.fecha_vencimiento.strftime("%d/%m/%Y") }}
+                    {{ badge_vencimiento(medicamento.fecha_vencimiento, hoy, dias) }}
+                </dd>
+
+                <dt class="col-sm-3">Registrado el</dt>
+                <dd class="col-sm-9">{{ medicamento.fecha_registro.strftime("%d/%m/%Y") }}</dd>
+            </dl>
+        </div>
+
+        <div class="card-footer d-flex flex-wrap gap-2">
+            <a class="btn btn-outline-secondary" href="{{ url_for('main.listarMeds') }}">Volver a la lista</a>
+            <a class="btn btn-primary" href="{{ url_for('gestion.editar_medicamento', id=medicamento.id) }}">Editar</a>
+            <form class="ms-auto" method="POST"
+                    action="{{ url_for('gestion.eliminar_medicamento', id=medicamento.id) }}"
+                    onsubmit="return confirm('¿Eliminar {{ medicamento.nombre|e }}? Esta acción no se puede deshacer.');">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button class="btn btn-danger" type="submit">Eliminar</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
