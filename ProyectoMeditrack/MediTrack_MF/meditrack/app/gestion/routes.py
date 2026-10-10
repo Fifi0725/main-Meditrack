@@ -1,4 +1,4 @@
-"""Rutas para crear, editar y eliminar medicamentos."""
+"""Rutas para crear, editar y eliminar medicamentos (CRUD)."""
 from flask import Blueprint, flash, redirect, render_template, url_for
 
 from app import db

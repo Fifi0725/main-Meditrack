@@ -35,4 +35,4 @@ Para detener el servidor puede simplemente escribir CTRL + C.
 
 <!-- PRUEBAS UNITARIAS -->
 
-Fueron creadas y configuradas en tests>testsCRUD.py con unittest, que viene integrado con 
+Fueron creadas y configuradas en tests>testsCRUD.py con unittest, que viene integrado con python, se debe de ejecutar con el boton de ejecutar como un archivo de python.
