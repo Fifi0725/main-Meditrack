@@ -5,11 +5,11 @@ import os
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
-    # AVISO: cambia esta clave (variable de entorno SECRET_KEY) antes de
+    # AVISO (recordatorio): cambiar esta clave (variable de entorno SECRET_KEY) antes de
     # entregar o desplegar el proyecto.
     SECRET_KEY = os.environ.get("SECRET_KEY", "development-only-change-me")
 
- 
+    #Conexion de la DB
     SQLALCHEMY_DATABASE_URI = os.environ.get(
         "DATABASE_URL", "sqlite:///" + os.path.join(BASE_DIR, "meditrack.db")
     )

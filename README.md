@@ -1,6 +1,6 @@
 # main-Meditrack 
 
-<!-- Bienvenidos a MediTrack! -->
+===  Bienvenidos a MediTrack!   ===
 
 Antes que nada, por favor tenga en consideración las siguientes especificaciones:
 
@@ -33,6 +33,6 @@ http://127.0.0.1:5000
 
 Para detener el servidor puede simplemente escribir CTRL + C.
 
-<!-- PRUEBAS UNITARIAS -->
+===  PRUEBAS UNITARIAS  ===
 
 Fueron creadas y configuradas en tests>testsCRUD.py con unittest, que viene integrado con python, se debe de ejecutar con el boton de ejecutar como un archivo de python.
