@@ -1,9 +1,3 @@
-"""Fábrica de la aplicación MediTrack.
-
-ERROR 1 (corregido): el docstring original decía "Rutas y formularios para la
-gestión de medicamentos", pero este archivo NO tiene rutas ni formularios:
-solo crea y configura la aplicación Flask.
-"""
 from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
