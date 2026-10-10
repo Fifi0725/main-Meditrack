@@ -10,10 +10,6 @@ from wtforms import (
     TextAreaField,
 )
 
-# ERROR 7 (corregido): se usaba DataRequired en precio y stock. DataRequired
-# rechaza cualquier valor "falso", así que un stock de 0 (o un precio de 0)
-# daba "El stock es obligatorio" aunque el usuario SÍ lo escribió.
-# InputRequired solo comprueba que el campo no llegó vacío.
 from wtforms.validators import DataRequired, InputRequired, Length, NumberRange
 
 

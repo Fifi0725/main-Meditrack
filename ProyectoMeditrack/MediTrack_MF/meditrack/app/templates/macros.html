@@ -1,11 +1,6 @@
 {#
     Macros reutilizables. Uso en una plantilla:
         {% from "macros.html" import campo, campo_check, badge_stock, badge_vencimiento %}
-
-    ERROR 18 (corregido): este archivo existía pero nadie lo importaba, y su
-    macro render_field usaba clases que no existían (.form-field, .error) en
-    vez de las de Bootstrap. Ahora formulario.html lo usa y evita ~100 líneas
-    repetidas.
 #}
 
 {# Campo de formulario con etiqueta, validación visual y mensajes de error. #}

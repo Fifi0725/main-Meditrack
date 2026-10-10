@@ -1,6 +1,6 @@
 # main-Meditrack 
 
-<!-- Bienvenidos a MediTrack. -->
+<!-- Bienvenidos a MediTrack! -->
 
 Antes que nada, por favor tenga en consideración las siguientes especificaciones:
 

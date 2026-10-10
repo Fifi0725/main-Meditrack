@@ -1,12 +1,6 @@
 {#
     Listado y búsqueda de medicamentos.
-
-    ERROR 19 (corregido): este archivo empezaba con <html><header> ANTES de
-    {% extends "base.html" %}, cerraba </header> dentro del bloque y abría un
-    segundo <body> y </html> al final. Una plantilla hija solo debe contener
-    {% extends %} y bloques; el <html>, <head> y <body> viven en base.html.
-    Resultado anterior: HTML duplicado y roto dentro de la página.
--#}
+#}
 {% extends "base.html" %}
 {% from "macros.html" import badge_stock, badge_vencimiento %}
 

@@ -1,12 +1,3 @@
-{#
-    Formulario compartido para crear y editar medicamentos (variable "titulo").
-
-    ERROR 21 (corregido): cada campo repetía ~15 líneas casi idénticas (etiqueta,
-    input, bucle de errores) y los errores se mostraban con .text-danger suelto
-    en vez de la validación visual de Bootstrap. Ahora se usa la macro "campo"
-    de macros.html. También: el botón Cancelar llevaba al panel; ahora vuelve
-    a la lista de medicamentos, que es de donde normalmente se llega.
--#}
 {% extends "base.html" %}
 {% from "macros.html" import campo, campo_check %}
 

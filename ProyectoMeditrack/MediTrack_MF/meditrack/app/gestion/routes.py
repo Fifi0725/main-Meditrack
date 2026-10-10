@@ -9,15 +9,7 @@ gestion_bp = Blueprint("gestion", __name__, url_prefix="/medicamentos")
 
 
 def _datos_del_formulario(form):
-    """Devuelve solo los campos que pertenecen al modelo.
-
-    ERROR 8 (corregido): crear y editar repetían siete asignaciones iguales.
-    Aquí queda un único lugar para mantenerlas.
-
-    No se incluye fecha_registro a propósito: la base de datos la llena sola
-    (ver models.py), así que no hace falta en la ruta de crear ni en la de
-    editar (la fecha de registro no debe cambiar al editar).
-    """
+   
     return {
         "nombre": form.nombre.data.strip(),
         "descripcion": form.descripcion.data.strip(),

@@ -7,8 +7,10 @@ from app.models import Medicamento
 main = Blueprint("main", __name__)
 
 # Umbrales para las alertas del panel y de las tablas.
-STOCK_BAJO = 10  # unidades o menos = "stock bajo"
-DIAS_POR_VENCER = 30  # vence dentro de este número de días = "por vencer"
+# unidades o menos = "stock bajo"
+STOCK_BAJO = 10  
+# vence dentro de este número de días = "por vencer"
+DIAS_POR_VENCER = 30  
 
 @main.route("/")
 def dashboard():

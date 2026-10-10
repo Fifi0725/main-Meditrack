@@ -14,9 +14,6 @@ class Medicamento(db.Model):
     fecha_vencimiento = db.Column(db.Date, nullable=False)
     requiere_receta = db.Column(db.Boolean, nullable=False, default=False)
 
-    # Respuesta a la duda "¿dónde está el campo de fecha de registro?" que
-    # estaba como comentario en gestion/routes.py: NO hay que pasarlo desde la
-    # ruta. Se llena solo con este default cuando se inserta el medicamento.
     fecha_registro = db.Column(
         db.DateTime,
         nullable=False,
