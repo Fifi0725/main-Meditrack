@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Página no encontrada | Meditrack{% endblock %}
+
+{% block content %}
+    <div class="text-center py-5">
+        <p class="display-1 fw-bold text-body-secondary mb-0">404</p>
+        <h1 class="h3 mb-3">Página no encontrada</h1>
+        <p class="text-body-secondary">La página o el medicamento que buscas no existe o fue eliminado.</p>
+        <a class="btn btn-primary" href="{{ url_for('main.dashboard') }}">Volver al inicio</a>
+    </div>
+{% endblock %}

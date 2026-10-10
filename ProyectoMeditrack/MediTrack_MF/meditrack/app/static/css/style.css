@@ -1,0 +1,159 @@
+/* ==========================================================================
+   MediTrack - estilos propios (se cargan DESPUÉS de Bootstrap).
+
+   Errores corregidos respecto a la versión anterior:
+   - ERROR 10: se cambiaba --bs-primary, pero Bootstrap 5.3 NO usa esa
+     variable para pintar .btn-primary (usa --bs-btn-bg y relacionadas), así
+     que los botones seguían azules. Ahora se redefinen explícitamente.
+   - ERROR 11: "body { padding-top: 72px }" reservaba espacio para un navbar
+     fixed-top que no existía; sobraba un hueco arriba.
+   - ERROR 12: reglas globales "header" y "main" chocaban con Bootstrap y
+     con el nuevo navbar; se eliminaron junto con las clases .form-field y
+     .error, que ningún HTML usa ya (los errores usan .invalid-feedback).
+   - ERROR 13: el :root mezclaba colores sueltos (#f8fafc, #1f2937) con la
+     paleta MediTrack; ahora hay una sola paleta.
+   ========================================================================== */
+
+:root {
+    --mt-crema: #F3EFE4;          /* fondo general */
+    --mt-gris: #C1C4B9;           /* bordes */
+    --mt-arena: #EADFC9;          /* navbar, cabeceras */
+    --mt-verde: #779384;          /* acento principal */
+    --mt-verde-oscuro: #5d7868;   /* hover / enlaces */
+    --mt-texto: #26302a;
+
+    --bs-body-bg: var(--mt-crema);
+    --bs-body-color: var(--mt-texto);
+    --bs-border-color: var(--mt-gris);
+    --bs-link-color: var(--mt-verde-oscuro);
+    --bs-link-hover-color: var(--mt-texto);
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+main {
+    flex: 1;
+}
+
+/* ---- Botones primarios en verde ---------------------------------------- */
+.btn-primary {
+    --bs-btn-bg: var(--mt-verde);
+    --bs-btn-border-color: var(--mt-verde);
+    --bs-btn-hover-bg: var(--mt-verde-oscuro);
+    --bs-btn-hover-border-color: var(--mt-verde-oscuro);
+    --bs-btn-active-bg: var(--mt-verde-oscuro);
+    --bs-btn-active-border-color: var(--mt-verde-oscuro);
+    --bs-btn-disabled-bg: var(--mt-verde);
+    --bs-btn-disabled-border-color: var(--mt-verde);
+    --bs-btn-focus-shadow-rgb: 119, 147, 132;
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--mt-verde-oscuro);
+    --bs-btn-border-color: var(--mt-verde);
+    --bs-btn-hover-bg: var(--mt-verde);
+    --bs-btn-hover-border-color: var(--mt-verde);
+    --bs-btn-active-bg: var(--mt-verde-oscuro);
+    --bs-btn-active-border-color: var(--mt-verde-oscuro);
+}
+
+.form-control:focus,
+.form-check-input:focus {
+    border-color: var(--mt-verde);
+    box-shadow: 0 0 0 0.25rem rgba(119, 147, 132, 0.25);
+}
+
+.form-check-input:checked {
+    background-color: var(--mt-verde);
+    border-color: var(--mt-verde);
+}
+
+/* ---- Barra de navegación ------------------------------------------------ */
+.mt-navbar {
+    background-color: var(--mt-arena);
+    border-bottom: 1px solid var(--mt-gris);
+}
+
+.mt-navbar .navbar-brand {
+    font-weight: 700;
+    color: var(--mt-texto);
+}
+
+.brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    margin-right: 0.5rem;
+    border-radius: 0.5rem;
+    background: var(--mt-verde);
+    color: #fff;
+    font-size: 0.95rem;
+}
+
+.mt-navbar .nav-link {
+    color: var(--mt-texto);
+    border-bottom: 2px solid transparent;
+}
+
+.mt-navbar .nav-link:hover {
+    color: var(--mt-verde-oscuro);
+}
+
+.mt-navbar .nav-link.active {
+    color: var(--mt-verde-oscuro);
+    font-weight: 600;
+    border-bottom-color: var(--mt-verde);
+}
+
+/* ---- Tarjetas y tablas -------------------------------------------------- */
+.card {
+    background-color: #fffdf8;
+    border-color: var(--mt-gris);
+}
+
+.card-header {
+    background-color: var(--mt-arena);
+    border-bottom-color: var(--mt-gris);
+    font-weight: 600;
+}
+
+.table {
+    --bs-table-bg: transparent;
+    --bs-table-striped-bg: rgba(234, 223, 201, 0.35);
+}
+
+.table > thead > tr > th {
+    background-color: var(--mt-arena);
+    color: var(--mt-texto);
+    white-space: nowrap;
+}
+
+/* ---- Tarjetas de resumen del panel -------------------------------------- */
+.stat-card .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.stat-card .stat-label {
+    color: #5b665f;
+    font-size: 0.9rem;
+}
+
+.stat-card.stat-ok { border-left: 4px solid var(--mt-verde); }
+.stat-card.stat-warn { border-left: 4px solid #e0a526; }
+.stat-card.stat-danger { border-left: 4px solid #c0392b; }
+
+/* ---- Pie de página ------------------------------------------------------ */
+.mt-footer {
+    border-top: 1px solid var(--mt-gris);
+    color: #5b665f;
+    font-size: 0.85rem;
+}

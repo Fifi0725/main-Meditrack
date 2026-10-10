@@ -1,0 +1,51 @@
+{#
+    Macros reutilizables. Uso en una plantilla:
+        {% from "macros.html" import campo, campo_check, badge_stock, badge_vencimiento %}
+
+    ERROR 18 (corregido): este archivo existía pero nadie lo importaba, y su
+    macro render_field usaba clases que no existían (.form-field, .error) en
+    vez de las de Bootstrap. Ahora formulario.html lo usa y evita ~100 líneas
+    repetidas.
+#}
+
+{# Campo de formulario con etiqueta, validación visual y mensajes de error. #}
+{% macro campo(field) %}
+    <div class="mb-3">
+        {{ field.label(class="form-label") }}
+        {{ field(class="form-control" ~ (" is-invalid" if field.errors else ""), **kwargs) }}
+        {% for error in field.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+{# Casilla de verificación (BooleanField). #}
+{% macro campo_check(field) %}
+    <div class="form-check mb-4">
+        {{ field(class="form-check-input") }}
+        {{ field.label(class="form-check-label") }}
+    </div>
+{% endmacro %}
+
+{# Insignia de stock: agotado / bajo / normal. #}
+{% macro badge_stock(stock, bajo) %}
+    {% if stock == 0 %}
+        <span class="badge text-bg-danger">Agotado</span>
+    {% elif stock <= bajo %}
+        <span class="badge text-bg-warning">{{ stock }} · bajo</span>
+    {% else %}
+        <span class="badge text-bg-success">{{ stock }}</span>
+    {% endif %}
+{% endmacro %}
+
+{# Insignia de vencimiento: vencido / por vencer / vigente. #}
+{% macro badge_vencimiento(fecha, hoy, dias) %}
+    {% set faltan = (fecha - hoy).days %}
+    {% if faltan < 0 %}
+        <span class="badge text-bg-danger">Vencido</span>
+    {% elif faltan <= dias %}
+        <span class="badge text-bg-warning">Vence en {{ faltan }} d</span>
+    {% else %}
+        <span class="badge text-bg-success">Vigente</span>
+    {% endif %}
+{% endmacro %}

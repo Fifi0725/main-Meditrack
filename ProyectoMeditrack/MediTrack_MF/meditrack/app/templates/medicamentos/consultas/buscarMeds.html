@@ -1,0 +1,84 @@
+{#
+    Listado y búsqueda de medicamentos.
+
+    ERROR 19 (corregido): este archivo empezaba con <html><header> ANTES de
+    {% extends "base.html" %}, cerraba </header> dentro del bloque y abría un
+    segundo <body> y </html> al final. Una plantilla hija solo debe contener
+    {% extends %} y bloques; el <html>, <head> y <body> viven en base.html.
+    Resultado anterior: HTML duplicado y roto dentro de la página.
+-#}
+{% extends "base.html" %}
+{% from "macros.html" import badge_stock, badge_vencimiento %}
+
+{% block title %}Medicamentos | Meditrack{% endblock %}
+
+{% block content %}
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <h1 class="h2 mb-0">Medicamentos</h1>
+        <a class="btn btn-primary" href="{{ url_for('gestion.crear_medicamento') }}">+ Agregar medicamento</a>
+    </div>
+
+    {# Búsqueda por nombre o laboratorio (parámetro ?q= leído en main.listarMeds) #}
+    <form class="row g-2 mb-3" method="GET" action="{{ url_for('main.listarMeds') }}" role="search">
+        <div class="col-12 col-sm">
+            <label class="visually-hidden" for="q">Buscar medicamento</label>
+            <input class="form-control" type="search" id="q" name="q" value="{{ q }}"
+                    placeholder="Buscar por nombre o laboratorio">
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-primary" type="submit">Buscar</button>
+            {% if q %}
+                <a class="btn btn-outline-secondary" href="{{ url_for('main.listarMeds') }}">Limpiar</a>
+            {% endif %}
+        </div>
+    </form>
+
+    {% if medicamentos %}
+        <div class="card">
+            <div class="table-responsive">
+                <table class="table table-striped align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Laboratorio</th>
+                            <th scope="col" class="text-end">Precio</th>
+                            <th scope="col">Stock</th>
+                            <th scope="col">Vencimiento</th>
+                            <th scope="col"><span class="visually-hidden">Acciones</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for medicamento in medicamentos %}
+                            <tr>
+                                <td class="fw-semibold">{{ medicamento.nombre }}</td>
+                                <td>{{ medicamento.laboratorio }}</td>
+                                <td class="text-end">${{ "%.2f"|format(medicamento.precio) }}</td>
+                                <td>{{ badge_stock(medicamento.stock, stock_bajo) }}</td>
+                                <td>
+                                    {{ medicamento.fecha_vencimiento.strftime("%d/%m/%Y") }}
+                                    {{ badge_vencimiento(medicamento.fecha_vencimiento, hoy, dias) }}
+                                </td>
+                                <td class="text-end">
+                                    <a class="btn btn-sm btn-outline-primary"
+                                        href="{{ url_for('main.detallesMeds', medicamento_id=medicamento.id) }}">
+                                        Ver detalles
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <p class="text-body-secondary small mt-2">{{ medicamentos|length }} resultado(s).</p>
+    {% elif q %}
+        <div class="card"><div class="card-body text-center py-5">
+            <p class="mb-0">No se encontraron medicamentos para «{{ q }}».</p>
+        </div></div>
+    {% else %}
+        <div class="card"><div class="card-body text-center py-5">
+            <p class="mb-3">Aún no hay medicamentos registrados.</p>
+            <a class="btn btn-primary" href="{{ url_for('gestion.crear_medicamento') }}">Agregar primer medicamento</a>
+        </div></div>
+    {% endif %}
+{% endblock %}
