@@ -31,6 +31,11 @@ Una vez ejecutado debe de presentarse que la app web debe de estar corriendo en:
 
 http://127.0.0.1:5000
 
+En caso de que run.py no se haya ejecutado intente proceder con el siguiente comando en la terminal:
+    Remove-Item -Recurse -Force venv
+    pip install Flask
+Luego de haber efectuado eso intente ejecutar run.py de nuevo.
+
 Para detener el servidor puede simplemente escribir CTRL + C.
 
 ===  PRUEBAS UNITARIAS  ===
